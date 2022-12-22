@@ -187,7 +187,7 @@ window.onload = function() {
         creator();
     }, 1000);
     
-    setInterval(function() { creator() }, 3500);
+    setInterval(function() { creator() }, 2500);
     
     animate();
 
