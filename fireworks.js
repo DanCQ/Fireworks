@@ -85,8 +85,8 @@ class Sparks {
     update() {
         this.velocity.x *= this.friction;
         this.velocity.y += this.gravity;
-        this.x += this.velocity.x;
-        this.y += this.velocity.y; 
+        this.x += this.velocity.x * randomRange(1, 1.1);
+        this.y += this.velocity.y;
         this.alpha -= 0.0022;
 
         this.draw();
@@ -113,7 +113,7 @@ function creator() {
 
         fireworks = new Sparks(x, y, radius, color, {
             x: Math.cos(radians * i) * Math.random(), 
-            y: Math.sin(radians * i) * Math.random()
+            y: Math.sin(radians * i) * Math.random() 
         });
         
         array.push(fireworks);
