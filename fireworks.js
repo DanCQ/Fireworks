@@ -65,7 +65,7 @@ class Sparks {
         this.radius = radius;
         this.color = color;
         this.velocity = velocity;
-        this.gravity = 0.003;  
+        this.gravity = 0.0035;  
         this.friction =  0.996; 
         this.alpha = 1;
     }
