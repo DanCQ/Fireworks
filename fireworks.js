@@ -39,14 +39,18 @@ const colorArray = [
     "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"
 ];
 
-const brightColors = `turquoise, darkturquoise, darksalmon, linen, lightcoral, lightgreen, coral, springgreen, khaki, dodgerblue, 
-magenta, blueviolet, lightskyblue, deepskyblue, lemonchiffon, lawngreen, indianred, pink, mediumvioletred, orange,
-navajowhite, deeppink, gold, palegoldenrod, yellow, burlywood, plum, greenyellow, firebrick, thistle, tomato, tan, 
-violet, antiquewhite, lightsteelblue, darkorange, azure, fuchsia, sandybrown, brown, seashell, crimson, red, mistyrose,
-cyan, lightseagreen, powderblue, lightpink, goldenrod, blue, palegreen, lightyellow, lemonchiffon, steelblue,
-darkcyan, cornflowerblue, peru, mediumturquoise, mediumpurple, peachpuff, firebrick, lime, papayawhip, blanchedalmond,
-mediumblue, royalblue, darkseagreen, rebeccapurple, cadetblue, hotpink, slateblue, lavender, bisque, cornsilk, moccasin,
-aquamarine, mintcream, limegreen, green, lightblue, chartreuse, skyblue, lavenderblush`.split(",");
+const brightColors = [
+    'turquoise', 'darkturquoise', 'darksalmon', 'linen', 'lightcoral', 'lightgreen', 'coral', 'springgreen', 
+    'khaki', 'dodgerblue', 'magenta', 'blueviolet', 'lightskyblue', 'deepskyblue', 'lemonchiffon', 'lawngreen', 
+    'indianred', 'pink', 'mediumvioletred', 'orange', 'navajowhite', 'deeppink', 'gold', 'palegoldenrod', 
+    'yellow', 'burlywood', 'plum', 'greenyellow', 'firebrick', 'thistle', 'tomato', 'tan', 'violet', 'antiquewhite', 
+    'lightsteelblue', 'darkorange', 'azure', 'fuchsia', 'sandybrown', 'brown', 'seashell', 'crimson', 'red', 'mistyrose',
+    'cyan', 'lightseagreen', 'powderblue', 'lightpink', 'goldenrod', 'blue', 'palegreen', 'lightyellow', 'lemonchiffon',
+    'steelblue', 'darkcyan', 'cornflowerblue', 'peru', 'mediumturquoise', 'mediumpurple', 'peachpuff', 'firebrick', 
+    'lime', 'papayawhip', 'blanchedalmond', 'mediumblue', 'royalblue', 'darkseagreen', 'rebeccapurple', 'cadetblue', 
+    'hotpink', 'slateblue', 'lavender', 'bisque', 'cornsilk', 'moccasin', 'aquamarine', 'mintcream', 'limegreen', 
+    'green', 'lightblue', 'chartreuse', 'skyblue', 'lavenderblush'
+];
 
 
 //Returns a random number within a chosen range
