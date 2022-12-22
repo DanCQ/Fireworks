@@ -152,7 +152,7 @@ canvas.addEventListener("click", function() {
 
     portfolio.style.visibility = "visible";
 
-    time = 10000; //10 seconds, resets on click
+    time = 3000; //3 seconds, resets on click
     
     if(allow) {
 
@@ -181,7 +181,7 @@ setTimeout(function() {
             screenWidth = window.innerWidth;
             canvas.height = screenHeight;
             canvas.width = screenWidth;
-        },100);
+        },50);
     });
 }, 25); 
 
