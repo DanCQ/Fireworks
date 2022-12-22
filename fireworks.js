@@ -67,15 +67,19 @@ class Sparks {
         this.velocity = velocity;
         this.gravity = 0.003;  
         this.friction =  0.996; 
+        this.alpha = 1;
     }
 
     //circle
     draw() {
+        c.save();
+        c.globalAlpha = this.alpha;
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
         c.fillStyle = `${this.color}`;
         c.fill();
         c.closePath();
+        c.restore();
     }
 
     update() {
@@ -83,6 +87,7 @@ class Sparks {
         this.velocity.y += this.gravity;
         this.x += this.velocity.x;
         this.y += this.velocity.y; 
+        this.alpha -= 0.0024;
 
         this.draw();
     }
@@ -123,8 +128,12 @@ function animate() {
     c.fillStyle = "rgba(0, 0, 0, 0.05)";
     c.fillRect(0,0,screenWidth,screenHeight);
 
-    array.forEach(obj => {
-        obj.update();
+    array.forEach((obj, i) => {
+        if(obj.alpha > 0) {
+            obj.update();
+        } else {
+            array.splice(i, 1);
+        }
     });
 }
 
