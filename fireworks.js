@@ -8,14 +8,12 @@ canvas.width = screenWidth;
 c = canvas.getContext("2d");
 
 let array = []; //object array
-let sparkCount;
-let allow = true; //used for interval
-let off; //used for interval
-let mouse = {
-    x: screenWidth / 2,
-    y: screenHeight / 2
-}
-let time = 0; //used for interval
+let sparkCount; //individual object
+
+//used for interval
+let allow = true; 
+let off; 
+let time = 0; 
 
 
 //141 colors. The minimum is 0, the maximum is 140
@@ -39,6 +37,7 @@ const colorArray = [
     "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"
 ];
 
+//colors better suited for fireworks
 const brightColors = [
     'turquoise', 'darkturquoise', 'darksalmon', 'linen', 'lightcoral', 'lightgreen', 'coral', 'springgreen', 
     'khaki', 'dodgerblue', 'magenta', 'blueviolet', 'lightskyblue', 'deepskyblue', 'lemonchiffon', 'lawngreen', 
@@ -66,12 +65,12 @@ class Sparks {
     constructor(x, y, radius, color, velocity) {
         this.x = x;
         this.y = y;
-        this.radius = radius;
+        this.radius = radius; //size of circles
         this.color = color;
-        this.velocity = velocity;
-        this.gravity = 0.0035;  
-        this.friction =  0.996; 
-        this.alpha = 1;
+        this.velocity = velocity; 
+        this.gravity = 0.0035; //pull down force
+        this.friction =  0.996; //slows sideways movement
+        this.alpha = 1; //visibility value
     }
 
     //circle
@@ -89,9 +88,9 @@ class Sparks {
     update() {
         this.velocity.x *= this.friction;
         this.velocity.y += this.gravity;
-        this.x += this.velocity.x * randomRange(1, 1.1);
-        this.y += this.velocity.y;
-        this.alpha -= 0.0022;
+        this.x += this.velocity.x * randomRange(1, 1.1); //sideways expansion force 
+        this.y += this.velocity.y; //velocity and dowards pull
+        this.alpha -= 0.0022; //when reduced to zero lights dissapear
 
         this.draw();
     }
@@ -103,7 +102,7 @@ function creator() {
     let color = brightColors[randomRange(0, brightColors.length - 1)];
     let dice = randomRange(1,25);
     let fireworks;
-    let x = randomRange(50, screenWidth - 50)
+    let x = randomRange(50, screenWidth - 50) 
     let y = randomRange(40, screenHeight - 200);
     sparkCount = randomRange(75,300);
     
@@ -115,9 +114,9 @@ function creator() {
             color = colorArray[randomRange(0, colorArray.length - 1)];
         }
 
-        fireworks = new Sparks(x, y, radius, color, {
-            x: Math.cos(radians * i) * Math.random(), 
-            y: Math.sin(radians * i) * Math.random() 
+        fireworks = new Sparks(x, y, radius, color, { 
+            x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
+            y: Math.sin(radians * i) * Math.random() //creates curved particle positions
         });
         
         array.push(fireworks);
@@ -133,11 +132,13 @@ function animate() {
     c.fillRect(0,0,screenWidth,screenHeight);
 
     array.forEach(obj => {
+        //while visible animate
         if(obj.alpha > 0) {
             obj.update();
-        } else {
+        } else { //else get rid of object
             array.splice(obj, 1);
         }
+        //prevents slowing the animation due to too many objects
         if(array.length > 3250) {
             array.splice(obj, 1);
         }
@@ -147,7 +148,7 @@ function animate() {
 
 canvas.addEventListener("click", function() {
 
-    creator();
+    creator(); //fireworks on demand
 
     portfolio.style.visibility = "visible";
 
@@ -189,9 +190,9 @@ window.onload = function() {
 
     setTimeout(function() {
         creator();
-    }, 1000);
+    }, 1000); //waits a second
     
-    setInterval(function() { creator() }, 2500);
+    setInterval(function() { creator() }, 2500); //a new firework every 2.5 seconds
     
     animate();
 
