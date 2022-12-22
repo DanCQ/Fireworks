@@ -128,11 +128,11 @@ function animate() {
     c.fillStyle = "rgba(0, 0, 0, 0.05)";
     c.fillRect(0,0,screenWidth,screenHeight);
 
-    array.forEach((obj, i) => {
+    array.forEach(obj => {
         if(obj.alpha > 0) {
             obj.update();
         } else {
-            array.splice(i, 1);
+            array.splice(obj, 1);
         }
     });
 }
