@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+    display:flex;
+        align-items: center;
+        justify-content: center;
+    margin:0;
+    min-height:100vh;
+    min-width:100vw;
+    overflow: hidden;
+}
+
+canvas {
+    background-color: black;
+    height:100%;
+    width:100%;
+}
+
+.portfolio {
+    position:absolute;
+        top:10px;
+    visibility:hidden;
+}
+
+.portfolio a {
+    color:oldlace;
+    opacity:0.3;
+    text-decoration: none;
+}
