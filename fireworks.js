@@ -134,6 +134,9 @@ function animate() {
         } else {
             array.splice(obj, 1);
         }
+        if(array.length > 3500) {
+            array.splice(obj, 1);
+        }
     });
 }
 
