@@ -87,7 +87,7 @@ class Sparks {
         this.velocity.y += this.gravity;
         this.x += this.velocity.x;
         this.y += this.velocity.y; 
-        this.alpha -= 0.0024;
+        this.alpha -= 0.0022;
 
         this.draw();
     }
@@ -184,7 +184,7 @@ window.onload = function() {
         creator();
     }, 1000);
     
-    setInterval(function() { creator() }, 5000);
+    setInterval(function() { creator() }, 3500);
     
     animate();
 
