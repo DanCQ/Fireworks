@@ -86,9 +86,7 @@ class Sparks {
 
         this.draw();
     }
-
 }
-
 
 
 function creator() {
