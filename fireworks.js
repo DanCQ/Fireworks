@@ -173,9 +173,11 @@ setTimeout(function() {
 
 window.onload = function() {
 
-    creator();
-
-    setInterval(function() { creator() }, 4000);
+    setTimeout(function() {
+        creator();
+    }, 1000);
+    
+    setInterval(function() { creator() }, 5000);
     
     animate();
 
