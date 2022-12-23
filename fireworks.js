@@ -143,7 +143,7 @@ function animate() {
 
     requestAnimationFrame(animate);
 
-    c.fillStyle = "rgba(0, 0, 0, 0.05)";
+    c.fillStyle = "rgba(0, 0, 0, 0.06)";
     c.fillRect(0,0,screenWidth,screenHeight);
 
     array.forEach(obj => {
@@ -154,7 +154,7 @@ function animate() {
             array.splice(obj, 1);
         }
         //prevents slowing the animation due to too many objects
-        if(array.length > 3250) {
+        if(array.length > 3000) {
             array.splice(obj, 1);
         }
     });
