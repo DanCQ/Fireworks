@@ -9,6 +9,7 @@ c = canvas.getContext("2d");
 
 let array = []; //object array
 let sparkCount; //individual object
+let wave = false;
 
 //used for interval
 let allow = true; 
@@ -59,6 +60,16 @@ function randomRange(min,max) {
 //Math.random() returns a random decimal between 0 - 0.99
 }
 
+function wavyFire() {
+    coin = randomRange(1,7);
+
+    if(coin == 1) {
+        wave = true;
+    } else {
+        wave = false;
+    }
+}
+
 
 //object blueprint
 class Sparks {
@@ -89,7 +100,11 @@ class Sparks {
         this.velocity.x *= this.friction;
         this.velocity.y += this.gravity;
         this.x += this.velocity.x * randomRange(1, 1.1); //sideways expansion force 
-        this.y += this.velocity.y; //velocity and dowards pull
+        if(wave) {
+            this.y += this.velocity.y - 0.35 -randomRange(0.3, 1); //creates wavy fireworks
+        } else {
+            this.y += this.velocity.y - 0.35; //velocity and dowards pull
+        }
         this.alpha -= 0.0045; //when reduced to zero sparks dissapear
         
         this.draw();
@@ -105,7 +120,7 @@ function creator() {
     let x = randomRange(50, screenWidth - 50) 
     let y = randomRange(40, screenHeight - 200);
     sparkCount = randomRange(75,300);
-    
+
     for(let i = 0; i < sparkCount; i++) {
 
         let radius = randomRange(0.3,1.3);
@@ -116,7 +131,7 @@ function creator() {
 
         fireworks = new Sparks(x, y, radius, color, { 
             x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
-            y: Math.sin(radians * i) * Math.random() -0.35 //creates curved particle positions
+            y: Math.sin(radians * i) * Math.random()  //creates curved particle positions
         });
         
         array.push(fireworks);
@@ -192,7 +207,10 @@ window.onload = function() {
         creator();
     }, 1000); //waits a second
     
-    setInterval(function() { creator() }, 2500); //a new firework every 2.5 seconds
+    setInterval(function() { 
+        creator(); 
+        wavyFire(); 
+    }, 2500); //a new firework every 2.5 seconds
     
     animate();
 
