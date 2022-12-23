@@ -61,7 +61,7 @@ function randomRange(min,max) {
 }
 
 function wavyFire() {
-    coin = randomRange(1,7);
+    coin = randomRange(1,8);
 
     if(coin == 1) {
         wave = true;
