@@ -101,7 +101,7 @@ class Sparks {
         this.velocity.y += this.gravity;
         this.x += this.velocity.x * randomRange(1, 1.1); //sideways expansion force 
         if(wave) {
-            this.y += this.velocity.y - 0.35 -randomRange(0.3, 0.8); //creates wavy fireworks
+            this.y += this.velocity.y - 0.35 -randomRange(0.3, 0.5); //creates wavy fireworks
         } else {
             this.y += this.velocity.y - 0.35; //velocity and dowards pull
         }
