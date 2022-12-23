@@ -123,7 +123,7 @@ function creator() {
 
     for(let i = 0; i < sparkCount; i++) {
 
-        let radius = randomRange(0.3,1.3);
+        let radius = randomRange(0.5, 1.3);
         let radians = Math.PI * 2 / sparkCount;
         if(dice == 25) {
             color = colorArray[randomRange(0, colorArray.length - 1)];
