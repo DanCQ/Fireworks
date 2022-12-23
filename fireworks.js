@@ -90,8 +90,8 @@ class Sparks {
         this.velocity.y += this.gravity;
         this.x += this.velocity.x * randomRange(1, 1.1); //sideways expansion force 
         this.y += this.velocity.y; //velocity and dowards pull
-        this.alpha -= 0.0022; //when reduced to zero lights dissapear
-
+        this.alpha -= 0.0045; //when reduced to zero sparks dissapear
+        
         this.draw();
     }
 }
@@ -116,7 +116,7 @@ function creator() {
 
         fireworks = new Sparks(x, y, radius, color, { 
             x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
-            y: Math.sin(radians * i) * Math.random() //creates curved particle positions
+            y: Math.sin(radians * i) * Math.random() -0.35 //creates curved particle positions
         });
         
         array.push(fireworks);
