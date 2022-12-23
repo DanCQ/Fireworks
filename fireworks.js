@@ -101,7 +101,7 @@ class Sparks {
         this.velocity.y += this.gravity;
         this.x += this.velocity.x * randomRange(1, 1.1); //sideways expansion force 
         if(wave) {
-            this.y += this.velocity.y - 0.35 -randomRange(0.1, 0.9); //creates wavy fireworks
+            this.y += this.velocity.y - 0.35 -randomRange(0.1, 0.8); //creates wavy fireworks
         } else {
             this.y += this.velocity.y - 0.35; //velocity and dowards pull
         }
@@ -208,9 +208,12 @@ window.onload = function() {
     }, 1000); //waits a second
     
     setInterval(function() { 
+        
         creator(); 
+
         wavyFire(); 
-    }, 3000); //a new firework every 3 seconds
+
+    }, 3500); //a new firework every 3.5 seconds
     
     animate();
 
