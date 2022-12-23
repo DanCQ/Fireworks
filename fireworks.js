@@ -210,7 +210,7 @@ window.onload = function() {
     setInterval(function() { 
         creator(); 
         wavyFire(); 
-    }, 2500); //a new firework every 2.5 seconds
+    }, 3000); //a new firework every 3 seconds
     
     animate();
 
