@@ -61,9 +61,9 @@ function randomRange(min,max) {
 }
 
 function wavyFire() {
-    coin = randomRange(1,8);
+  let dice = randomRange(1,12);
 
-    if(coin == 1) {
+    if(dice == 1) {
         wave = true;
     } else {
         wave = false;
