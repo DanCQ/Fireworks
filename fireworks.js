@@ -213,7 +213,7 @@ window.onload = function() {
 
         wavyFire(); 
 
-    }, 3500); //a new firework every 3.5 seconds
+    }, 2000); //a new firework every 2 seconds
     
     animate();
 
