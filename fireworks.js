@@ -211,9 +211,13 @@ window.onload = function() {
         
         creator(); 
 
+        setTimeout(function() {
+            creator();
+        }, 1750); //waits a 1.75 seconds
+
         wavyFire(); 
 
-    }, 2000); //a new firework every 2 seconds
+    }, 3500); //repeats every 3.5 seconds
     
     animate();
 
