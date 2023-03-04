@@ -79,7 +79,7 @@ class Sparks {
         this.radius = radius; //size of circles
         this.color = color;
         this.velocity = velocity; 
-        this.gravity = 0.0035; //pull down force
+        this.gravity = 0.005; //pull down force
         this.friction =  0.996; //slows sideways movement
         this.alpha = 1; //visibility value
     }
