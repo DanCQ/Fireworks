@@ -201,6 +201,12 @@ setTimeout(function() {
 }, 25); 
 
 
+// Prevents the right-click menu
+document.addEventListener('contextmenu', function (event) {
+    event.preventDefault(); 
+});
+
+
 window.onload = function() {
 
     setTimeout(function() {
