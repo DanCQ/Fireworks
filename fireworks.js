@@ -15,6 +15,7 @@ let wave = false;
 let allow = true; 
 let off; 
 let time = 0; 
+let pageVisible = true;
 
 
 //141 colors. The minimum is 0, the maximum is 140
@@ -207,24 +208,49 @@ document.addEventListener('contextmenu', function (event) {
 });
 
 
-window.onload = function() {
+//Event listener for page visibility change
+document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') {
+        //If Page is not visible, pause function
+        pageVisible = false;
+    } else {
+        //If Page is visible, resume function
+        pageVisible = true;
+    }
+});
+
+//Pauses functions, if window, or tab is not active
+function activeSpectator() {
 
     setTimeout(function() {
-        creator();
+
+        if(pageVisible) {
+            creator();
+        }
+
     }, 1000); //waits a second
     
     setInterval(function() { 
         
-        creator(); 
+        if(pageVisible) {
+            creator(); 
 
-        setTimeout(function() {
-            creator();
-        }, 1750); //waits a 1.75 seconds
+            setTimeout(function() {
+                if(pageVisible) {
+                    creator();
+                }
+            }, 1750); //waits a 1.75 seconds
 
-        wavyFire(); 
+            wavyFire(); 
+        }
 
     }, 3500); //repeats every 3.5 seconds
     
     animate();
+}
 
+
+window.onload = function() {
+
+    activeSpectator();
 };
