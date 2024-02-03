@@ -7,10 +7,8 @@ canvas.height = screenHeight;
 canvas.width = screenWidth;
 c = canvas.getContext("2d");
 
-let launch = [];
+let launch = []; //object array
 let explode = []; //object array
-
-let wave = false;
 
 //used for interval
 let allow = true; 
@@ -119,7 +117,7 @@ class Sparks {
         this.gravity = 0.005; //pull down force
         this.friction =  0.996; //slows sideways movement
         this.alpha = 1; //visibility value
-        this.wave = wave;
+        this.wave = wave; //boolean
     }
 
     //circle
@@ -139,11 +137,11 @@ class Sparks {
         this.velocity.y += this.gravity;
         this.x += this.velocity.x * randomRange(1, 1.1); //sideways expansion force 
         if(this.wave) {
-            this.y += this.velocity.y - 0.35 -randomRange(0.1, 0.8); //creates wavy fireworks
+            this.y += this.velocity.y - 0.35 -randomRange(0.1, 0.8); //creates wavy effect
         } else {
             this.y += this.velocity.y - 0.35; //velocity and dowards pull
         }
-        this.alpha -= 0.0045; //when reduced to zero sparks dissapear
+        this.alpha -= 0.0045; //when reduced to zero dissapears
         
         this.draw();
     }
@@ -192,7 +190,7 @@ function pop(flareX, flareY, flareColor, wavy) {
     }
 }
 
-
+//animates object arrays
 function animate() {
 
     requestAnimationFrame(animate);
@@ -203,11 +201,8 @@ function animate() {
     launch.forEach(obj => {
 
         if(obj.alpha > 0) { //update while visible
-
             obj.update();
-
-        } else { 
-
+        } else {
             obj.wavyFire(); //true or false
 
             pop(obj.x, obj.y, obj.color, obj.wavy); //triggers explosion
@@ -217,11 +212,11 @@ function animate() {
     })
 
     explode.forEach(obj => {
-        //while visible animate
-        if(obj.alpha > 0) {
+        
+        if(obj.alpha > 0) { //while visible animate
             obj.update();
-        } else { //else get rid of object
-            explode.splice(obj, 1);
+        } else { 
+            explode.splice(obj, 1); //else get rid of object
         }
         //prevents slowing animation due to too many objects
         if(explode.length > 2200) {
