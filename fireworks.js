@@ -7,8 +7,9 @@ canvas.height = screenHeight;
 canvas.width = screenWidth;
 c = canvas.getContext("2d");
 
-let array = []; //object array
-let sparkCount; //individual object
+let launch = [];
+let explode = []; //object array
+
 let wave = false;
 
 //used for interval
@@ -57,24 +58,59 @@ const brightColors = [
 //Returns a random number within a chosen range
 function randomRange(min,max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-//Math.floor() rounds down to the nearest whole number  e.i. 10 = 0 - 9  
+//Math.floor() rounds down to the nearest whole number  
 //Math.random() returns a random decimal between 0 - 0.99
 }
 
-function wavyFire() {
-  let dice = randomRange(1,12);
 
-    if(dice == 1) {
-        wave = true;
-    } else {
-        wave = false;
+//creates rising flares
+class Trails {
+    constructor(x, y, radius, color, velocity) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.velocity = velocity; //launch force
+        this.color = color;
+        this.alpha = 1; //visibility value
+        this.gravity = -0.08; //pull down force
+        this.wavy = false;
+        this.wavyFire();
     }
+    
+    wavyFire() {
+        let dice = randomRange(1,15);
+        
+        if(dice == 1) {
+            this.wavy = true;
+        }
+    } 
+
+    draw() {
+        c.save();
+        c.globalAlpha = this.alpha;
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.fillStyle = this.color;
+        c.fill();
+        c.closePath();
+        c.restore();
+    }
+    
+    update() {
+        this.velocity.y -= this.gravity; 
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
+        this.alpha -= 0.01; //dissapear when reduced to zero
+
+        this.draw();
+    }
+
 }
 
 
 //object blueprint
 class Sparks {
-    constructor(x, y, radius, color, velocity) {
+    constructor(x, y, radius, color, velocity, wave) {
         this.x = x;
         this.y = y;
         this.radius = radius; //size of circles
@@ -83,6 +119,7 @@ class Sparks {
         this.gravity = 0.005; //pull down force
         this.friction =  0.996; //slows sideways movement
         this.alpha = 1; //visibility value
+        this.wave = wave;
     }
 
     //circle
@@ -91,7 +128,7 @@ class Sparks {
         c.globalAlpha = this.alpha;
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        c.fillStyle = `${this.color}`;
+        c.fillStyle = this.color;
         c.fill();
         c.closePath();
         c.restore();
@@ -101,7 +138,7 @@ class Sparks {
         this.velocity.x *= this.friction;
         this.velocity.y += this.gravity;
         this.x += this.velocity.x * randomRange(1, 1.1); //sideways expansion force 
-        if(wave) {
+        if(this.wave) {
             this.y += this.velocity.y - 0.35 -randomRange(0.1, 0.8); //creates wavy fireworks
         } else {
             this.y += this.velocity.y - 0.35; //velocity and dowards pull
@@ -113,18 +150,34 @@ class Sparks {
 }
 
 
-function creator() {
+function ignite() {
 
     let color = brightColors[randomRange(0, brightColors.length - 1)];
+    let flare;
+    let radius = randomRange(2, 2.4);
+    let x = randomRange(100, screenWidth - 100);
+    let y = randomRange(screenHeight, screenHeight - 100);
+    
+    flare = new Trails(x, y, radius, color, {
+        x: 3 * (Math.random() - 0.5),
+        y: randomRange(-5,-9)
+    })
+
+    launch.push(flare);
+}
+
+
+function pop(flareX, flareY, flareColor, wavy) {
+    let color = flareColor;
     let dice = randomRange(1,25);
     let fireworks;
-    let x = randomRange(50, screenWidth - 50) 
-    let y = randomRange(40, screenHeight - 200);
-    sparkCount = randomRange(75,300);
-
+    let sparkCount = randomRange(75,275);
+    let x = flareX; 
+    let y = flareY; 
+    
     for(let i = 0; i < sparkCount; i++) {
 
-        let radius = randomRange(0.5, 1.3);
+        let radius = randomRange(0.5, 1.4);
         let radians = Math.PI * 2 / sparkCount;
         if(dice == 25) {
             color = colorArray[randomRange(0, colorArray.length - 1)];
@@ -133,9 +186,9 @@ function creator() {
         fireworks = new Sparks(x, y, radius, color, { 
             x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
             y: Math.sin(radians * i) * Math.random()  //creates curved particle positions
-        });
+        }, wavy); //wavy is true or false
         
-        array.push(fireworks);
+        explode.push(fireworks);
     }
 }
 
@@ -147,16 +200,32 @@ function animate() {
     c.fillStyle = "rgba(0, 0, 0, 0.06)";
     c.fillRect(0,0,screenWidth,screenHeight);
 
-    array.forEach(obj => {
+    launch.forEach(obj => {
+
+        if(obj.alpha > 0) { //update while visible
+
+            obj.update();
+
+        } else { 
+
+            obj.wavyFire(); //true or false
+
+            pop(obj.x, obj.y, obj.color, obj.wavy); //triggers explosion
+            
+            launch.splice(obj, 1); // gets rid of object
+        }
+    })
+
+    explode.forEach(obj => {
         //while visible animate
         if(obj.alpha > 0) {
             obj.update();
         } else { //else get rid of object
-            array.splice(obj, 1);
+            explode.splice(obj, 1);
         }
-        //prevents slowing the animation due to too many objects
-        if(array.length > 3000) {
-            array.splice(obj, 1);
+        //prevents slowing animation due to too many objects
+        if(explode.length > 2200) {
+            explode.splice(obj, 1);
         }
     });
 }
@@ -164,7 +233,7 @@ function animate() {
 
 canvas.addEventListener("click", function() {
 
-    creator(); //fireworks on demand
+    ignite(); //fireworks on demand
 
     portfolio.style.visibility = "visible";
 
@@ -225,7 +294,7 @@ function activeSpectator() {
     setTimeout(function() {
 
         if(pageVisible) {
-            creator();
+            ignite();
         }
 
     }, 1000); //waits a second
@@ -233,15 +302,13 @@ function activeSpectator() {
     setInterval(function() { 
         
         if(pageVisible) {
-            creator(); 
+            ignite(); 
 
             setTimeout(function() {
                 if(pageVisible) {
-                    creator();
+                    ignite();
                 }
             }, 1750); //waits a 1.75 seconds
-
-            wavyFire(); 
         }
 
     }, 3500); //repeats every 3.5 seconds
