@@ -309,24 +309,18 @@ function activeSpectator() {
     setTimeout(function() {
 
         if(pageVisible) {
-            ignite();
+            ignite(); 
         }
 
-    }, 1000); //waits a second
+    }, randomRange(1500, 3500)); //sets a random interval
     
     setInterval(function() { 
         
         if(pageVisible) {
             ignite(); 
-
-            setTimeout(function() {
-                if(pageVisible) {
-                    ignite();
-                }
-            }, 1750); //waits a 1.75 seconds
         }
 
-    }, 3500); //repeats every 3.5 seconds
+    }, randomRange(2500, 6000)); //sets a random interval
     
     animate();
 }
