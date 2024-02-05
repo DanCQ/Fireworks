@@ -10,12 +10,14 @@ c = canvas.getContext("2d");
 let launch = []; //object array
 let explode = []; //object array
 
+let crackle = new Audio('assets/crackle.m4a');
+let crackle2 = new Audio('assets/crackle2.m4a');
+
 //used for interval
 let allow = true; 
 let off; 
 let time = 0; 
 let pageVisible = true;
-
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -108,7 +110,7 @@ class Trails {
 
 //object blueprint
 class Sparks {
-    constructor(x, y, radius, color, velocity, wave) {
+    constructor(x, y, radius, color, velocity, wave, loudCrackle) {
         this.x = x;
         this.y = y;
         this.radius = radius; //size of circles
@@ -118,6 +120,7 @@ class Sparks {
         this.friction =  0.996; //slows sideways movement
         this.alpha = 1; //visibility value
         this.wave = wave; //boolean
+        this.loudCrackle = loudCrackle;
     }
 
     //circle
@@ -173,6 +176,9 @@ function pop(flareX, flareY, flareColor, wavy) {
     let x = flareX; 
     let y = flareY; 
 
+    let pop = new Audio('assets/pop.m4a');
+    let popBass = new Audio('assets/pop-bass.m4a');
+
     for(let i = 0; i < sparkCount; i++) {
         let radius = randomRange(0.5, 1.4);
         let radians = Math.PI * 2 / sparkCount;
@@ -185,12 +191,14 @@ function pop(flareX, flareY, flareColor, wavy) {
             fireworks = new Sparks(x, y, radius, color, {
                 x: Math.cos(radians * i) * Math.random() + randomRange(-0.5,0.5), //creates circular particle positions
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved particle positions
-            }, wavy); //wavy is true or false
+            }, wavy, true); //wavy is true or false
+            popBass.play();
         } else {
             fireworks = new Sparks(x, y, radius, color, {
                 x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
                 y: Math.sin(radians * i) * Math.random() //creates curved particle positions
-            }, wavy); //wavy is true or false
+            }, wavy, false); //wavy is true or false
+            pop.play();
         }
         
         explode.push(fireworks);
@@ -223,6 +231,11 @@ function animate() {
         if(obj.alpha > 0) { //while visible animate
             obj.update();
         } else { 
+            if(obj.loudCrackle) {
+                crackle2.play();
+            } else {
+                crackle.play();
+            }
             explode.splice(obj, 1); //else get rid of object
         }
         //prevents slowing animation due to too many objects
