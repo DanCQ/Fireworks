@@ -180,7 +180,7 @@ function pop(flareX, flareY, flareColor, wavy) {
     let popBass = new Audio('assets/pop-bass.m4a');
 
     for(let i = 0; i < sparkCount; i++) {
-        let radius = randomRange(0.4, 1.3);
+        let radius = randomRange(0.5, 1.3);
         let radians = Math.PI * 2 / sparkCount;
 
         if(dice == 25) {
