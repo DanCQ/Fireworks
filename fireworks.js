@@ -10,14 +10,17 @@ c = canvas.getContext("2d");
 let launch = []; //object array
 let explode = []; //object array
 
-let crackle = new Audio('assets/crackle.m4a');
-let crackle2 = new Audio('assets/crackle2.m4a');
-
 //used for interval
 let allow = true; 
 let off; 
 let time = 0; 
 let pageVisible = true;
+
+//const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
+const crackle = new Audio('assets/crackle.m4a');
+const crackle2 = new Audio('assets/crackle2.m4a');
+//const popTreble = new Audio('assets/pop.m4a');
+//const popBass = new Audio('assets/pop-bass.m4a');
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -54,6 +57,11 @@ const brightColors = [
     'green', 'lightblue', 'chartreuse', 'skyblue', 'lavenderblush'
 ];
 
+
+// //preloads sounds for better performance
+// function preloadSound(sound) {
+//     sound.load();
+// } May not be necessary
 
 //Returns a random number within a chosen range
 function randomRange(min,max) {
@@ -145,6 +153,14 @@ class Sparks {
             this.y += this.velocity.y - 0.35; //velocity and dowards pull
         }
         this.alpha -= 0.0045; //when reduced to zero dissapears
+
+        if(this.alpha <= 0) {
+            if(this.loudCrackle) {
+                crackle2.play();
+            } else {
+                crackle.play();
+            }
+        }
         
         this.draw();
     }
@@ -169,15 +185,15 @@ function ignite() {
 
 
 function pop(flareX, flareY, flareColor, wavy) {
+    const popBass = new Audio('assets/pop-bass.m4a');
+    const popTreble = new Audio('assets/pop.m4a');
+
     let color = flareColor;
     let dice = randomRange(1,25);
     let fireworks;
     let sparkCount = randomRange(75,275);
     let x = flareX; 
     let y = flareY; 
-
-    let pop = new Audio('assets/pop.m4a');
-    let popBass = new Audio('assets/pop-bass.m4a');
 
     for(let i = 0; i < sparkCount; i++) {
         let radius = randomRange(0.5, 1.3);
@@ -198,7 +214,7 @@ function pop(flareX, flareY, flareColor, wavy) {
                 x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
                 y: Math.sin(radians * i) * Math.random() //creates curved particle positions
             }, wavy, false); //wavy is true or false
-            pop.play();
+            popTreble.play();
         }
         
         explode.push(fireworks);
@@ -231,11 +247,6 @@ function animate() {
         if(obj.alpha > 0) { //while visible animate
             obj.update();
         } else { 
-            if(obj.loudCrackle) {
-                crackle2.play();
-            } else {
-                crackle.play();
-            }
             explode.splice(obj, 1); //else get rid of object
         }
         //prevents slowing animation due to too many objects
@@ -329,4 +340,14 @@ function activeSpectator() {
 window.onload = function() {
 
     activeSpectator();
+
+    // if(isMobile) { //preloads sounds on mobile
+    //     setTimeout(function(){
+    //         preloadSound(crackle);
+    //         preloadSound(crackle2);
+    //         preloadSound(popTreble);
+    //         preloadSound(popBass);
+    //         console.log("loaded");
+    //     },1500);
+    // } May not be necessary
 };
