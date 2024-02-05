@@ -220,7 +220,7 @@ function pop(flareX, flareY, flareColor, wavy) {
 
 //animates object arrays
 function animate() {
-
+    
     requestAnimationFrame(animate);
 
     c.fillStyle = "rgba(0, 0, 0, 0.06)";
@@ -245,8 +245,12 @@ function animate() {
         } else { 
             explode.splice(obj, 1); //else get rid of object
         }
+
         //prevents slowing animation due to too many objects
         if(explode.length > 2200) {
+            explode.splice(obj, 1);
+        }
+        if(isMobile && explode.length > 1700) {
             explode.splice(obj, 1);
         }
     });
