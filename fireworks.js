@@ -155,7 +155,7 @@ function ignite() {
 
     let color = brightColors[randomRange(0, brightColors.length - 1)];
     let flare;
-    let radius = randomRange(2, 2.4);
+    let radius = randomRange(1.8, 2.2);
     let x = randomRange(100, screenWidth - 100);
     let y = randomRange(screenHeight, screenHeight - 100);
     
