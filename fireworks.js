@@ -114,7 +114,7 @@ class Sparks {
         this.radius = radius; //size of circles
         this.color = color;
         this.velocity = velocity; 
-        this.gravity = 0.005; //pull down force
+        this.gravity = 0.003; //pull down force
         this.friction =  0.996; //slows sideways movement
         this.alpha = 1; //visibility value
         this.wave = wave; //boolean
@@ -172,19 +172,26 @@ function pop(flareX, flareY, flareColor, wavy) {
     let sparkCount = randomRange(75,275);
     let x = flareX; 
     let y = flareY; 
-    
-    for(let i = 0; i < sparkCount; i++) {
 
+    for(let i = 0; i < sparkCount; i++) {
         let radius = randomRange(0.5, 1.4);
         let radians = Math.PI * 2 / sparkCount;
+
         if(dice == 25) {
             color = colorArray[randomRange(0, colorArray.length - 1)];
         }
 
-        fireworks = new Sparks(x, y, radius, color, { 
-            x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
-            y: Math.sin(radians * i) * Math.random()  //creates curved particle positions
-        }, wavy); //wavy is true or false
+        if(sparkCount % 5 == 0) { //creates a larger explosion
+            fireworks = new Sparks(x, y, radius, color, {
+                x: Math.cos(radians * i) * Math.random() + randomRange(-0.5,0.5), //creates circular particle positions
+                y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved particle positions
+            }, wavy); //wavy is true or false
+        } else {
+            fireworks = new Sparks(x, y, radius, color, {
+                x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
+                y: Math.sin(radians * i) * Math.random() //creates curved particle positions
+            }, wavy); //wavy is true or false
+        }
         
         explode.push(fireworks);
     }
