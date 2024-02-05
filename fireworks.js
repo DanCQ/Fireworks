@@ -16,11 +16,9 @@ let off;
 let time = 0; 
 let pageVisible = true;
 
-//const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
 const crackle = new Audio('assets/crackle.m4a');
 const crackle2 = new Audio('assets/crackle2.m4a');
-//const popTreble = new Audio('assets/pop.m4a');
-//const popBass = new Audio('assets/pop-bass.m4a');
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -58,10 +56,10 @@ const brightColors = [
 ];
 
 
-// //preloads sounds for better performance
-// function preloadSound(sound) {
-//     sound.load();
-// } May not be necessary
+//preloads sounds for better performance
+function preloadSound(sound) {
+    sound.load();
+} 
 
 //Returns a random number within a chosen range
 function randomRange(min,max) {
@@ -91,7 +89,7 @@ class Trails {
         if(dice == 1) {
             this.wavy = true;
         }
-    } 
+    }
 
     draw() {
         c.save();
@@ -112,7 +110,6 @@ class Trails {
 
         this.draw();
     }
-
 }
 
 
@@ -125,7 +122,7 @@ class Sparks {
         this.color = color;
         this.velocity = velocity; 
         this.gravity = 0.003; //pull down force
-        this.friction =  0.996; //slows sideways movement
+        this.friction = 0.996; //slows sideways movement
         this.alpha = 1; //visibility value
         this.wave = wave; //boolean
         this.loudCrackle = loudCrackle;
@@ -168,18 +165,17 @@ class Sparks {
 
 
 function ignite() {
-
     let color = brightColors[randomRange(0, brightColors.length - 1)];
-    let flare;
     let radius = randomRange(1.8, 2.2);
     let x = randomRange(100, screenWidth - 100);
     let y = randomRange(screenHeight, screenHeight - 100);
     
-    flare = new Trails(x, y, radius, color, {
+    let flare = new Trails(x, y, radius, color, {
         x: 3 * (Math.random() - 0.5),
         y: randomRange(-5,-9)
     })
 
+    flare.wavyFire();
     launch.push(flare);
 }
 
@@ -187,11 +183,11 @@ function ignite() {
 function pop(flareX, flareY, flareColor, wavy) {
     const popBass = new Audio('assets/pop-bass.m4a');
     const popTreble = new Audio('assets/pop.m4a');
-
+    
     let color = flareColor;
-    let dice = randomRange(1,25);
+    let dice = randomRange(1, 25);
     let fireworks;
-    let sparkCount = randomRange(75,275);
+    let sparkCount = randomRange(75, 250);
     let x = flareX; 
     let y = flareY; 
 
@@ -205,14 +201,14 @@ function pop(flareX, flareY, flareColor, wavy) {
 
         if(sparkCount % 5 == 0) { //creates a larger explosion
             fireworks = new Sparks(x, y, radius, color, {
-                x: Math.cos(radians * i) * Math.random() + randomRange(-0.5,0.5), //creates circular particle positions
-                y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved particle positions
+                x: Math.cos(radians * i) * Math.random() + randomRange(-0.5,0.5), //creates circular patterns 
+                y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
             popBass.play();
         } else {
             fireworks = new Sparks(x, y, radius, color, {
-                x: Math.cos(radians * i) * Math.random(), //creates circular particle positions
-                y: Math.sin(radians * i) * Math.random() //creates curved particle positions
+                x: Math.cos(radians * i) * Math.random(), //creates circular patterns
+                y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
             popTreble.play();
         }
@@ -220,6 +216,7 @@ function pop(flareX, flareY, flareColor, wavy) {
         explode.push(fireworks);
     }
 }
+
 
 //animates object arrays
 function animate() {
@@ -234,7 +231,6 @@ function animate() {
         if(obj.alpha > 0) { //update while visible
             obj.update();
         } else {
-            obj.wavyFire(); //true or false
 
             pop(obj.x, obj.y, obj.color, obj.wavy); //triggers explosion
             
@@ -341,13 +337,8 @@ window.onload = function() {
 
     activeSpectator();
 
-    // if(isMobile) { //preloads sounds on mobile
-    //     setTimeout(function(){
-    //         preloadSound(crackle);
-    //         preloadSound(crackle2);
-    //         preloadSound(popTreble);
-    //         preloadSound(popBass);
-    //         console.log("loaded");
-    //     },1500);
-    // } May not be necessary
+    if(isMobile) { //preloads sounds on mobile
+        preloadSound(crackle);
+        preloadSound(crackle2);
+    }
 };
