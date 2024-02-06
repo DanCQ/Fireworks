@@ -56,11 +56,6 @@ const brightColors = [
 ];
 
 
-//preloads sounds for better performance
-function preloadSound(sound) {
-    sound.load();
-} 
-
 //Returns a random number within a chosen range
 function randomRange(min,max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -364,7 +359,4 @@ window.onload = function() {
 
     activeSpectator();
 
-    //optimization
-    preloadSound(crackle);
-    preloadSound(crackle2);
 };
