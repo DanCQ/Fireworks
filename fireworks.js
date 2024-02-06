@@ -191,9 +191,17 @@ function pop(flareX, flareY, flareColor, wavy) {
     let color = flareColor;
     let dice = randomRange(1, 25);
     let fireworks;
-    let sparkCount = randomRange(75, 250);
+    let sparkCount = sparkSize();
     let x = flareX; 
     let y = flareY; 
+
+    function sparkSize() { //mobile optimization
+        if(isMobile) {
+            return randomRange(75, 175);
+        } else { 
+            return randomRange(75, 275);
+        }
+    }
 
     for(let i = 0; i < sparkCount; i++) {
         let radius = randomRange(0.5, 1.3);
