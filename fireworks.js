@@ -208,13 +208,23 @@ function pop(flareX, flareY, flareColor, wavy) {
                 x: Math.cos(radians * i) * Math.random() + randomRange(-0.5,0.5), //creates circular patterns 
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
-            popBass.play();
+
+            if(isMobile && popBass.paused) { //for optimization
+                popBass.play();
+            } else {
+                popBass.play();
+            }
         } else {
             fireworks = new Sparks(x, y, radius, color, {
                 x: Math.cos(radians * i) * Math.random(), //creates circular patterns
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
-            popTreble.play();
+
+            if(isMobile && popTreble.paused) { //for optimization
+                popTreble.play();
+            } else {
+                popTreble.play();
+            }
         }
         
         explode.push(fireworks);
