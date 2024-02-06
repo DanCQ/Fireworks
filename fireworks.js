@@ -153,9 +153,13 @@ class Sparks {
 
         if(this.alpha <= 0) {
             if(this.loudCrackle) {
-                crackle2.play();
+                if(crackle2.paused) {
+                    crackle2.play();
+                }
             } else {
-                crackle.play();
+                if(crackle.paused) {
+                    crackle.play();
+                }
             }
         }
         
@@ -314,6 +318,7 @@ document.addEventListener('visibilitychange', function () {
     }
 });
 
+
 //Pauses functions, if window, or tab is not active
 function activeSpectator() {
 
@@ -341,8 +346,7 @@ window.onload = function() {
 
     activeSpectator();
 
-    if(isMobile) { //preloads sounds on mobile
-        preloadSound(crackle);
-        preloadSound(crackle2);
-    }
+    //optimization
+    preloadSound(crackle);
+    preloadSound(crackle2);
 };
