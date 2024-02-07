@@ -19,6 +19,8 @@ let pageVisible = true;
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
 const crackle = new Audio('assets/crackle.m4a');
 const crackle2 = new Audio('assets/crackle2.m4a');
+preloadAudio(crackle);
+preloadAudio(crackle2);
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -365,8 +367,5 @@ function activeSpectator() {
 window.onload = function() {
 
     activeSpectator();
-
-    preloadAudio(crackle);
-    preloadAudio(crackle2);
 
 };
