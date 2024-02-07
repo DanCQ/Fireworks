@@ -56,6 +56,11 @@ const brightColors = [
 ];
 
 
+function preloadAudio(audioElement) {
+    audioElement.load();
+}
+
+
 //Returns a random number within a chosen range
 function randomRange(min,max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -182,6 +187,8 @@ function ignite() {
 function pop(flareX, flareY, flareColor, wavy) {
     const popBass = new Audio('assets/pop-bass.m4a');
     const popTreble = new Audio('assets/pop.m4a');
+    preloadAudio(popBass);
+    preloadAudio(popTreble);
     
     let color = flareColor;
     let dice = randomRange(1, 25);
@@ -358,5 +365,8 @@ function activeSpectator() {
 window.onload = function() {
 
     activeSpectator();
+
+    preloadAudio(crackle);
+    preloadAudio(crackle2);
 
 };
