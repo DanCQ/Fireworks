@@ -27,8 +27,8 @@ const popTrebleURL = 'assets/pop.m4a';
 
 let crackleAudio;
 let crackle2Audio;
-let popBassAudio;
-let popTrebleAudio;
+//let popBassAudio;
+//let popTrebleAudio;
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -87,8 +87,8 @@ function preloadAudio(audioURL) {
 }
 preloadAudio(crackleURL);
 preloadAudio(crackle2URL);
-preloadAudio(popBassURL);
-preloadAudio(popTrebleURL);
+//preloadAudio(popBassURL);
+//preloadAudio(popTrebleURL);
 
 
 //Returns a random number within a chosen range
@@ -217,6 +217,10 @@ function ignite() {
 function pop(flareX, flareY, flareColor, wavy) {
     //const popBass = new Audio('assets/pop-bass.m4a');
     //const popTreble = new Audio('assets/pop.m4a');
+    let popBassAudio;
+    let popTrebleAudio;
+    preloadAudio(popBassURL);
+    preloadAudio(popTrebleURL);
     
     let color = flareColor;
     let dice = randomRange(1, 25);
