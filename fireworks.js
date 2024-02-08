@@ -27,8 +27,8 @@ const popTrebleURL = 'assets/pop.m4a';
 
 let crackleAudio;
 let crackle2Audio;
-//let popBassAudio;
-//let popTrebleAudio;
+let popBassAudio;
+let popTrebleAudio;
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -78,11 +78,17 @@ function preloadAudio(audioURL) {
     if (audioURL === crackle2URL) {
         crackle2Audio = audioElement;
     }
+    if(audioURL === popBassURL) {
+        popBassAudio = audioElement;
+    }
+    if (audioURL === popTrebleURL) {
+        popTrebleAudio = audioElement;
+    }
 }
 preloadAudio(crackleURL);
 preloadAudio(crackle2URL);
-//preloadAudio(popBassURL);
-//preloadAudio(popTrebleURL);
+preloadAudio(popBassURL);
+preloadAudio(popTrebleURL);
 
 
 //Returns a random number within a chosen range
@@ -211,25 +217,8 @@ function ignite() {
 function pop(flareX, flareY, flareColor, wavy) {
     //const popBass = new Audio('assets/pop-bass.m4a');
     //const popTreble = new Audio('assets/pop.m4a');
-    let popBassAudio;
-    let popTrebleAudio;
-    //preload audio for optimization 
-function preloadAudio(audioURL) {
-    let audioElement = new Audio();
-    audioElement.src = audioURL;
-    audioElement.load();
-
-    //assigns preloaded audio to var
-    if (audioURL === popBassURL) {
-        popBassAudio = audioElement;
-    }
-    if (audioURL === popTrebleURL) {
-        popTrebleAudio = audioElement;
-    }
-}
-    preloadAudio(popBassURL);
-    preloadAudio(popTrebleURL);
-    
+    let bassAudio = popBassAudio;
+    let trebleAudio = popTrebleAudio;
     let color = flareColor;
     let dice = randomRange(1, 25);
     let fireworks;
@@ -259,19 +248,21 @@ function preloadAudio(audioURL) {
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
 
+            bassAudio.play();
             //if(isMobile && popBassAudio.paused) { //for optimization
-                popBassAudio.play();
+                //popBassAudio.play();
             //} else {
                 //popBassAudio.play();
-            //}
+            //} 
         } else {
             fireworks = new Sparks(x, y, radius, color, {
                 x: Math.cos(radians * i) * Math.random(), //creates circular patterns
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
 
+            trebleAudio.play();
             //if(isMobile && popTrebleAudio.paused) { //for optimization
-                popTrebleAudio.play();
+                //popTrebleAudio.play();
             //} else {
                 //popTrebleAudio.play();
             //}
