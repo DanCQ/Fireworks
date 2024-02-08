@@ -17,8 +17,6 @@ let time = 0;
 let pageVisible = true;
 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
-//const crackle = new Audio('assets/crackle.m4a');
-//const crackle2 = new Audio('assets/crackle2.m4a');
 
 const crackleURL = 'assets/crackle.m4a';
 const crackle2URL = 'assets/crackle2.m4a';
@@ -246,22 +244,22 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
 
-            //if(isMobile && popBassAudio.paused) { //for optimization
-                //popBassAudio.play();
-            //} else {
+            if(isMobile && popBassAudio.paused) { //for optimization
+                popBassAudio.play();
+            } else {
                 popBass.play();
-            //} 
+            } 
         } else {
             fireworks = new Sparks(x, y, radius, color, {
                 x: Math.cos(radians * i) * Math.random(), //creates circular patterns
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
 
-            //if(isMobile && popTrebleAudio.paused) { //for optimization
-                //popTrebleAudio.play();
-            //} else {
+            if(isMobile && popTrebleAudio.paused) { //for optimization
+                popTrebleAudio.play();
+            } else {
                 popTreble.play();
-            //}
+            }
         }
         
         explode.push(fireworks);
