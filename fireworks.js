@@ -17,6 +17,7 @@ let time = 0;
 let pageVisible = true;
 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
+const isTouch = 'ontouchstart' in window; //used to check if touchscreen
 
 const crackleURL = 'assets/crackle.m4a';
 const crackle2URL = 'assets/crackle2.m4a';
@@ -213,8 +214,8 @@ function ignite() {
 
 
 function pop(flareX, flareY, flareColor, wavy) {
-    //const popBass = new Audio('assets/pop-bass.m4a');
-    //const popTreble = new Audio('assets/pop.m4a');
+    const popBass = new Audio('assets/pop-bass.m4a');
+    const popTreble = new Audio('assets/pop.m4a');
     let color = flareColor;
     let dice = randomRange(1, 25);
     let fireworks;
@@ -244,22 +245,22 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
 
-            //if(isMobile) { //for optimization
+            if(isTouch) { //for optimization
                 popBassAudio.play();
-            //} else {
-                //popBass.play();
-            //} 
+            } else {
+                popBass.play();
+            } 
         } else {
             fireworks = new Sparks(x, y, radius, color, {
                 x: Math.cos(radians * i) * Math.random(), //creates circular patterns
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
 
-            //if(isMobile) { //for optimization
+            if(isTouch) { //for optimization
                 popTrebleAudio.play();
-            //} else {
-                //popTreble.play();
-            //}
+            } else {
+                popTreble.play();
+            }
         }
         
         explode.push(fireworks);
