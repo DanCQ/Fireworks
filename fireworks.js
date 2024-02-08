@@ -215,10 +215,8 @@ function ignite() {
 
 
 function pop(flareX, flareY, flareColor, wavy) {
-    //const popBass = new Audio('assets/pop-bass.m4a');
-    //const popTreble = new Audio('assets/pop.m4a');
-    let bassAudio = popBassAudio;
-    let trebleAudio = popTrebleAudio;
+    const popBass = new Audio('assets/pop-bass.m4a');
+    const popTreble = new Audio('assets/pop.m4a');
     let color = flareColor;
     let dice = randomRange(1, 25);
     let fireworks;
@@ -248,11 +246,10 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
 
-            bassAudio.play();
             //if(isMobile && popBassAudio.paused) { //for optimization
                 //popBassAudio.play();
             //} else {
-                //popBassAudio.play();
+                popBass.play();
             //} 
         } else {
             fireworks = new Sparks(x, y, radius, color, {
@@ -260,11 +257,10 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
 
-            trebleAudio.play();
             //if(isMobile && popTrebleAudio.paused) { //for optimization
                 //popTrebleAudio.play();
             //} else {
-                //popTrebleAudio.play();
+                popTreble.play();
             //}
         }
         
