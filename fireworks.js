@@ -214,10 +214,10 @@ function ignite() {
 
 
 function pop(flareX, flareY, flareColor, wavy) {
-    if(!ismobile) { //better sound if not mobile 
-        popBassAudio = new Audio('assets/pop-bass.m4a');
-        popTrebleAudio = new Audio('assets/pop.m4a');
-    }
+    //if(!ismobile) { //better sound if not mobile 
+        //popBassAudio = new Audio('assets/pop-bass.m4a');
+        //popTrebleAudio = new Audio('assets/pop.m4a');
+    //}
     let color = flareColor;
     let dice = randomRange(1, 25);
     let fireworks;
