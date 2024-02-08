@@ -214,8 +214,8 @@ function ignite() {
 
 
 function pop(flareX, flareY, flareColor, wavy) {
-    const popBass = new Audio('assets/pop-bass.m4a');
-    const popTreble = new Audio('assets/pop.m4a');
+    const popBass; //= new Audio('assets/pop-bass.m4a');
+    const popTreble; //= new Audio('assets/pop.m4a');
     let color = flareColor;
     let dice = randomRange(1, 25);
     let fireworks;
@@ -248,6 +248,7 @@ function pop(flareX, flareY, flareColor, wavy) {
             if(isTouch) { //for optimization
                 popBassAudio.play();
             } else {
+                popBass = new Audio('assets/pop-bass.m4a');
                 popBass.play();
             } 
         } else {
@@ -259,6 +260,7 @@ function pop(flareX, flareY, flareColor, wavy) {
             if(isTouch) { //for optimization
                 popTrebleAudio.play();
             } else {
+                popTreble = new Audio('assets/pop.m4a');
                 popTreble.play();
             }
         }
