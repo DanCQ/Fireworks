@@ -17,7 +17,7 @@ let time = 0;
 let pageVisible = true;
 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
-const isTouch = 'ontouchstart' in window; //used to check if touchscreen
+//const isTouch = 'ontouchstart' in window; //used to check if touchscreen
 
 const crackleURL = 'assets/crackle.m4a';
 const crackle2URL = 'assets/crackle2.m4a';
