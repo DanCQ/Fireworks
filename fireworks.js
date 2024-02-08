@@ -181,13 +181,13 @@ class Sparks {
 
         if(this.alpha <= 0) {
             if(this.loudCrackle) {
-                if(crackle2Audio.paused) {
+                //if(crackle2Audio.paused) {
                     crackle2Audio.play();
-                }
+                //}
             } else {
-                if(crackleAudio.paused) {
+                //if(crackleAudio.paused) {
                     crackleAudio.play();
-                }
+                //}
             }
         }
         
@@ -244,7 +244,7 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
 
-            if(isMobile && popBassAudio.paused) { //for optimization
+            if(isMobile) { //for optimization
                 popBassAudio.play();
             } else {
                 popBass.play();
@@ -255,7 +255,7 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
 
-            if(isMobile && popTrebleAudio.paused) { //for optimization
+            if(isMobile) { //for optimization
                 popTrebleAudio.play();
             } else {
                 popTreble.play();
