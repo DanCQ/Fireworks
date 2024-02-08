@@ -78,12 +78,6 @@ function preloadAudio(audioURL) {
     if (audioURL === crackle2URL) {
         crackle2Audio = audioElement;
     }
-    if (audioURL === popBassURL) {
-        popBassAudio = audioElement;
-    }
-    if (audioURL === popTrebleURL) {
-        popTrebleAudio = audioElement;
-    }
 }
 preloadAudio(crackleURL);
 preloadAudio(crackle2URL);
@@ -219,6 +213,20 @@ function pop(flareX, flareY, flareColor, wavy) {
     //const popTreble = new Audio('assets/pop.m4a');
     let popBassAudio;
     let popTrebleAudio;
+    //preload audio for optimization 
+function preloadAudio(audioURL) {
+    let audioElement = new Audio();
+    audioElement.src = audioURL;
+    audioElement.load();
+
+    //assigns preloaded audio to var
+    if (audioURL === popBassURL) {
+        popBassAudio = audioElement;
+    }
+    if (audioURL === popTrebleURL) {
+        popTrebleAudio = audioElement;
+    }
+}
     preloadAudio(popBassURL);
     preloadAudio(popTrebleURL);
     
