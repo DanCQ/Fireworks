@@ -85,10 +85,6 @@ function preloadAudio(audioURL) {
         popTrebleAudio = audioElement;
     }
 }
-preloadAudio(crackleURL);
-preloadAudio(crackle2URL);
-preloadAudio(popBassURL);
-preloadAudio(popTrebleURL);
 
 
 //Returns a random number within a chosen range
@@ -393,5 +389,9 @@ function activeSpectator() {
 window.onload = function() {
 
     activeSpectator();
-
+    
+    preloadAudio(crackleURL);
+    preloadAudio(crackle2URL);
+    preloadAudio(popBassURL);
+    preloadAudio(popTrebleURL);
 };
