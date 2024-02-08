@@ -20,10 +20,10 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks
 //const crackle = new Audio('assets/crackle.m4a');
 //const crackle2 = new Audio('assets/crackle2.m4a');
 
-const crackleURL = ‘assets/crackle.m4a’;
-const crackle2URL = ‘assets/crackle2.m4a’;
-const popBassURL = ‘assets/popBass.m4a’;
-const popTrebleURL = ‘assets/popTreble.m4a’;
+const crackleURL = 'assets/crackle.m4a';
+const crackle2URL = 'assets/crackle2.m4a';
+const popBassURL = 'assets/popBass.m4a';
+const popTrebleURL = 'assets/popTreble.m4a';
 
 let crackleAudio;
 let crackle2Audio;
@@ -85,6 +85,10 @@ function preloadAudio(audioURL) {
         popTrebleAudio = audioElement;
     }
 }
+preloadAudio(crackleURL);
+preloadAudio(crackle2URL);
+preloadAudio(popBassURL);
+preloadAudio(popTrebleURL);
 
 
 //Returns a random number within a chosen range
@@ -387,11 +391,6 @@ function activeSpectator() {
 
 
 window.onload = function() {
-
-    activeSpectator();
     
-    preloadAudio(crackleURL);
-    preloadAudio(crackle2URL);
-    preloadAudio(popBassURL);
-    preloadAudio(popTrebleURL);
+    activeSpectator();
 };
