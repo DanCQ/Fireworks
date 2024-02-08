@@ -22,8 +22,8 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks
 
 const crackleURL = 'assets/crackle.m4a';
 const crackle2URL = 'assets/crackle2.m4a';
-const popBassURL = 'assets/popBass.m4a';
-const popTrebleURL = 'assets/popTreble.m4a';
+const popBassURL = 'assets/pop-bass.m4a';
+const popTrebleURL = 'assets/pop.m4a';
 
 let crackleAudio;
 let crackle2Audio;
