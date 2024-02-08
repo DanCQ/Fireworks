@@ -20,6 +20,15 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks
 const crackle = new Audio('assets/crackle.m4a');
 const crackle2 = new Audio('assets/crackle2.m4a');
 
+const crackleURL = ‘assets/crackle.m4a’;
+const crackle2URL = ‘assets/crackle2.m4a’;
+const popBassURL = ‘assets/popBass.m4a’;
+const popTrebleURL = ‘assets/popTreble.m4a’;
+
+let crackleAudio;
+let crackle2Audio;
+let popBassAudio;
+let popTrebleAudio;
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -55,6 +64,31 @@ const brightColors = [
     'hotpink', 'slateblue', 'lavender', 'bisque', 'cornsilk', 'moccasin', 'aquamarine', 'mintcream', 'limegreen', 
     'green', 'lightblue', 'chartreuse', 'skyblue', 'lavenderblush'
 ];
+
+//preload audio for optimization 
+function preloadAudio(audioURL) {
+    let audioElement = new Audio();
+    audioElement.src = audioURL;
+    audioElement.load();
+
+    //assigns preloaded audio to var
+    if(audioURL === crackleURL) {
+        crackleAudio = audioElement;
+    }
+    if (audioURL === crackle2URL) {
+        crackle2Audio = audioElement;
+    }
+    if (audioURL === popBassURL) {
+        popBassAudio = audioElement;
+    }
+    if (audioURL === popTrebleURL) {
+        popTrebleAudio = audioElement;
+    }
+}
+preloadAudio(crackleURL);
+preloadAudio(crackle2URL);
+preloadAudio(popBassURL);
+preloadAudio(popTrebleURL);
 
 
 //Returns a random number within a chosen range
@@ -149,12 +183,12 @@ class Sparks {
 
         if(this.alpha <= 0) {
             if(this.loudCrackle) {
-                if(crackle2.paused) {
-                    crackle2.play();
+                if(crackle2Audio.paused) {
+                    crackle2Audio.play();
                 }
             } else {
-                if(crackle.paused) {
-                    crackle.play();
+                if(crackleAudio.paused) {
+                    crackleAudio.play();
                 }
             }
         }
@@ -213,10 +247,10 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
 
-            if(isMobile && popBass.paused) { //for optimization
-                popBass.play();
+            if(isMobile && popBassAudio.paused) { //for optimization
+                popBassAudio.play();
             } else {
-                popBass.play();
+                popBassAudio.play();
             }
         } else {
             fireworks = new Sparks(x, y, radius, color, {
@@ -224,10 +258,10 @@ function pop(flareX, flareY, flareColor, wavy) {
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
 
-            if(isMobile && popTreble.paused) { //for optimization
-                popTreble.play();
+            if(isMobile && popTrebleAudio.paused) { //for optimization
+                popTrebleAudio.play();
             } else {
-                popTreble.play();
+                popTrebleAudio.play();
             }
         }
         
