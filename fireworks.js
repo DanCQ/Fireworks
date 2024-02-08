@@ -19,8 +19,7 @@ let pageVisible = true;
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
 const crackle = new Audio('assets/crackle.m4a');
 const crackle2 = new Audio('assets/crackle2.m4a');
-preloadAudio(crackle);
-preloadAudio(crackle2);
+
 
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
@@ -56,11 +55,6 @@ const brightColors = [
     'hotpink', 'slateblue', 'lavender', 'bisque', 'cornsilk', 'moccasin', 'aquamarine', 'mintcream', 'limegreen', 
     'green', 'lightblue', 'chartreuse', 'skyblue', 'lavenderblush'
 ];
-
-
-function preloadAudio(audioElement) {
-    audioElement.load();
-}
 
 
 //Returns a random number within a chosen range
@@ -189,8 +183,6 @@ function ignite() {
 function pop(flareX, flareY, flareColor, wavy) {
     const popBass = new Audio('assets/pop-bass.m4a');
     const popTreble = new Audio('assets/pop.m4a');
-    preloadAudio(popBass);
-    preloadAudio(popTreble);
     
     let color = flareColor;
     let dice = randomRange(1, 25);
