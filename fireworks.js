@@ -198,7 +198,7 @@ class Sparks {
 
 function ignite() {
     let color = brightColors[randomRange(0, brightColors.length - 1)];
-    let radius = randomRange(1.8, 2);
+    let radius = randomRange(1.9, 2.1);
     let x = randomRange(100, screenWidth - 100);
     let y = randomRange(screenHeight, screenHeight - 100);
     
