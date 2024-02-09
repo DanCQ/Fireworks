@@ -16,19 +16,6 @@ let off;
 let time = 0; 
 let pageVisible = true;
 
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
-//const isTouch = 'ontouchstart' in window; //used to check if touchscreen
-
-const crackleURL = 'assets/crackle.m4a';
-const crackle2URL = 'assets/crackle2.m4a';
-const popBassURL = 'assets/pop-bass.m4a';
-const popTrebleURL = 'assets/pop.m4a';
-
-let crackleAudio;
-let crackle2Audio;
-let popBassAudio;
-let popTrebleAudio;
-
 //141 colors. The minimum is 0, the maximum is 140
 const colorArray = [
     "aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", 
@@ -64,7 +51,19 @@ const brightColors = [
     'green', 'lightblue', 'chartreuse', 'skyblue', 'lavenderblush'
 ];
 
-//preload audio for optimization 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
+
+const crackleURL = 'assets/crackle.m4a';
+const crackle2URL = 'assets/crackle2.m4a';
+const popBassURL = 'assets/pop-bass.m4a';
+const popTrebleURL = 'assets/pop.m4a';
+
+let crackleAudio;
+let crackle2Audio;
+let popBassAudio;
+let popTrebleAudio;
+
+//preload audio for mobile optimization 
 function preloadAudio(audioURL) {
     let audioElement = new Audio();
     audioElement.src = audioURL;
@@ -199,7 +198,7 @@ class Sparks {
 
 function ignite() {
     let color = brightColors[randomRange(0, brightColors.length - 1)];
-    let radius = randomRange(1.8, 2.2);
+    let radius = randomRange(1.7, 1.9);
     let x = randomRange(100, screenWidth - 100);
     let y = randomRange(screenHeight, screenHeight - 100);
     
@@ -214,31 +213,43 @@ function ignite() {
 
 
 function pop(flareX, flareY, flareColor, wavy) {
-    //if(!ismobile) { //better sound if not mobile 
-        //popBassAudio = new Audio('assets/pop-bass.m4a');
-        //popTrebleAudio = new Audio('assets/pop.m4a');
-    //}
+
     let color = flareColor;
-    let dice = randomRange(1, 25);
+    let dice = randomRange(1, 100);
     let fireworks;
     let sparkCount = sparkSize();
     let x = flareX; 
     let y = flareY; 
+    
+    let two = colorArray[randomRange(0, colorArray.length - 1)];
+    let three = colorArray[randomRange(0, colorArray.length - 1)];
+
+    let colorMixer = [color, two, three];
+    
+    if(!isMobile) { //better sound if not mobile 
+        popBassAudio = new Audio('assets/pop-bass.m4a');
+        popTrebleAudio = new Audio('assets/pop.m4a');
+    }
 
     function sparkSize() { //mobile optimization
         if(isMobile) {
-            return randomRange(75, 175);
+            return randomRange(75, 150); //less objects
         } else { 
-            return randomRange(75, 275);
+            return randomRange(100, 275);
         }
     }
 
     for(let i = 0; i < sparkCount; i++) {
-        let radius = randomRange(0.5, 1.3);
+        let radius = randomRange(0.5, 1.1);
         let radians = Math.PI * 2 / sparkCount;
 
-        if(dice == 25) {
+        //random color combinations
+        if(dice == 1) {
             color = colorArray[randomRange(0, colorArray.length - 1)];
+        } else if(dice % 2 == 0) {
+            color = colorMixer[randomRange(0, colorMixer.length - 2)];
+        } else if (dice % 3 == 0) {
+            color = colorMixer[randomRange(0, colorMixer.length - 1)];
         }
 
         if(sparkCount % 5 == 0) { //creates a larger explosion
@@ -246,14 +257,14 @@ function pop(flareX, flareY, flareColor, wavy) {
                 x: Math.cos(radians * i) * Math.random() + randomRange(-0.5,0.5), //creates circular patterns 
                 y: Math.sin(radians * i) * Math.random() + randomRange(-0.5,0.5) //creates curved patterns 
             }, wavy, true); //wavy is true or false
-
+            
             popBassAudio.play();
         } else {
             fireworks = new Sparks(x, y, radius, color, {
                 x: Math.cos(radians * i) * Math.random(), //creates circular patterns
                 y: Math.sin(radians * i) * Math.random() //creates curved patterns
             }, wavy, false); //wavy is true or false
-
+           
             popTrebleAudio.play();
         }
         
