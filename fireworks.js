@@ -198,7 +198,7 @@ class Sparks {
 
 function ignite() {
     let color = brightColors[randomRange(0, brightColors.length - 1)];
-    let radius = randomRange(1.7, 1.9);
+    let radius = randomRange(1.8, 2);
     let x = randomRange(100, screenWidth - 100);
     let y = randomRange(screenHeight, screenHeight - 100);
     
@@ -240,7 +240,7 @@ function pop(flareX, flareY, flareColor, wavy) {
     }
 
     for(let i = 0; i < sparkCount; i++) {
-        let radius = randomRange(0.7, 1.1);
+        let radius = randomRange(0.8, 1.2);
         let radians = Math.PI * 2 / sparkCount;
 
         //random color combinations
