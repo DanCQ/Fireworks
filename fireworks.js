@@ -233,7 +233,7 @@ function pop(flareX, flareY, flareColor, wavy) {
 
     function sparkSize() { //mobile optimization
         if(isMobile) {
-            return randomRange(75, 150); //less objects
+            return randomRange(75, 175); //less objects
         } else { 
             return randomRange(100, 275);
         }
