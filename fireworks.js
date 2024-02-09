@@ -240,7 +240,7 @@ function pop(flareX, flareY, flareColor, wavy) {
     }
 
     for(let i = 0; i < sparkCount; i++) {
-        let radius = randomRange(0.6, 1.1);
+        let radius = randomRange(0.7, 1.1);
         let radians = Math.PI * 2 / sparkCount;
 
         //random color combinations
