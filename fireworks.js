@@ -7,8 +7,21 @@ canvas.height = screenHeight;
 canvas.width = screenWidth;
 c = canvas.getContext("2d");
 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
+
+const crackleURL = 'assets/crackle.m4a';
+const crackle2URL = 'assets/crackle2.m4a';
+const popBassURL = 'assets/pop-bass.m4a';
+const popTrebleURL = 'assets/pop.m4a';
+//for audio preloading
+let crackleAudio;
+let crackle2Audio;
+let popBassAudio;
+let popTrebleAudio;
+
 let launch = []; //object array
 let explode = []; //object array
+let launchHeight = launchSpeed(screenHeight);
 
 //used for interval
 let allow = true; 
@@ -51,17 +64,13 @@ const brightColors = [
     'green', 'lightblue', 'chartreuse', 'skyblue', 'lavenderblush'
 ];
 
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent); //checks if mobile device 
 
-const crackleURL = 'assets/crackle.m4a';
-const crackle2URL = 'assets/crackle2.m4a';
-const popBassURL = 'assets/pop-bass.m4a';
-const popTrebleURL = 'assets/pop.m4a';
+//launch speed set by screenHeight
+function launchSpeed(height) {
+    height = height.toString().split(""); //coverts to array
+    return height[0]; //returns first number
+} 
 
-let crackleAudio;
-let crackle2Audio;
-let popBassAudio;
-let popTrebleAudio;
 
 //preload audio for mobile optimization 
 function preloadAudio(audioURL) {
@@ -83,10 +92,6 @@ function preloadAudio(audioURL) {
         popTrebleAudio = audioElement;
     }
 }
-preloadAudio(crackleURL);
-preloadAudio(crackle2URL);
-preloadAudio(popBassURL);
-preloadAudio(popTrebleURL);
 
 
 //Returns a random number within a chosen range
@@ -199,12 +204,12 @@ class Sparks {
 function ignite() {
     let color = brightColors[randomRange(0, brightColors.length - 1)];
     let radius = randomRange(1.8, 2.1);
-    let x = randomRange(100, screenWidth - 100);
+    let x = randomRange(150, screenWidth - 150);
     let y = randomRange(screenHeight, screenHeight - 100);
     
     let flare = new Trails(x, y, radius, color, {
         x: 3 * (Math.random() - 0.5),
-        y: randomRange(-5,-9)
+        y: randomRange((-launchHeight +1 ), (-launchHeight - 2.5))
     })
 
     flare.wavyFire();
@@ -213,7 +218,6 @@ function ignite() {
 
 
 function pop(flareX, flareY, flareColor, wavy) {
-
     let color = flareColor;
     let dice = randomRange(1, 100);
     let fireworks;
@@ -347,6 +351,8 @@ setTimeout(function() {
             screenWidth = window.innerWidth;
             canvas.height = screenHeight;
             canvas.width = screenWidth;
+
+            launchHeight = launchSpeed(screenHeight);
         },50);
     });
 }, 25); 
@@ -393,7 +399,11 @@ function activeSpectator() {
 }
 
 
-window.onload = function() {
-    
+window.onload = function() {    console.log(launchHeight);
+    preloadAudio(crackleURL);
+    preloadAudio(crackle2URL);
+    preloadAudio(popBassURL);
+    preloadAudio(popTrebleURL);
+
     activeSpectator();
 };
