@@ -354,7 +354,6 @@ setTimeout(function() {
             canvas.width = screenWidth;
 
             launchHeight = launchSpeed();
-            console.log(launchHeight);
         },50);
     });
 }, 25); 
@@ -401,7 +400,7 @@ function activeSpectator() {
 }
 
 
-window.onload = function() {    console.log(launchHeight);
+window.onload = function() {   
     preloadAudio(crackleURL);
     preloadAudio(crackle2URL);
     preloadAudio(popBassURL);
