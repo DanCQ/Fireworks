@@ -209,7 +209,7 @@ function ignite() {
     
     let flare = new Trails(x, y, radius, color, {
         x: 3 * (Math.random() - 0.5),
-        y: randomRange((-launchHeight +1 ), (-launchHeight - 2.5))
+        y: randomRange(-launchHeight, (-launchHeight - 3))
     })
 
     flare.wavyFire();
