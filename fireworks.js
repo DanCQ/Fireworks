@@ -21,7 +21,7 @@ let popTrebleAudio;
 
 let launch = []; //object array
 let explode = []; //object array
-let launchHeight = launchSpeed(screenHeight);
+let launchHeight = launchSpeed();
 
 //used for interval
 let allow = true; 
@@ -66,7 +66,8 @@ const brightColors = [
 
 
 //launch speed set by screenHeight
-function launchSpeed(height) {
+function launchSpeed() {
+    let height = screenHeight;
     height = height.toString().split(""); //coverts to array
     return height[0]; //returns first number
 } 
@@ -209,7 +210,7 @@ function ignite() {
     
     let flare = new Trails(x, y, radius, color, {
         x: 3 * (Math.random() - 0.5),
-        y: randomRange(-launchHeight, (-launchHeight - 3))
+        y: randomRange((-launchHeight + 1), (-launchHeight - 3))
     })
 
     flare.wavyFire();
@@ -237,9 +238,9 @@ function pop(flareX, flareY, flareColor, wavy) {
 
     function sparkSize() { //mobile optimization
         if(isMobile) {
-            return randomRange(75, 175); //less objects
+            return randomRange(75, 150); //less objects
         } else { 
-            return randomRange(100, 275);
+            return randomRange(100, 250);
         }
     }
 
@@ -352,7 +353,8 @@ setTimeout(function() {
             canvas.height = screenHeight;
             canvas.width = screenWidth;
 
-            launchHeight = launchSpeed(screenHeight);
+            launchHeight = launchSpeed();
+            console.log(launchHeight);
         },50);
     });
 }, 25); 
